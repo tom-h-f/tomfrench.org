@@ -1,0 +1,3 @@
+[submodule "tomfrench.org/content/obsidian-vault"]
+	path = tomfrench.org/content/obsidian-vault
+	url = git@github.com:tom-h-f/brain-base.git

@@ -8,16 +8,21 @@ export interface Note {
     content: string;
     frontmatter: Record<string, unknown>;
     category?: string;
+    subcategory?: string;
+    fullPath?: string;
     tags?: string[];
     date?: string;
 }
 
-const notesDirectory = path.join(process.cwd(), 'src/content/notes');
+// Primary source: Obsidian vault submodule
+const obsidianDirectory = path.join(process.cwd(), 'content/obsidian-vault');
+// Fallback: local notes directory
+const localNotesDirectory = path.join(process.cwd(), 'src/content/notes');
 
 export function getAllNotes(): Note[] {
     const notes: Note[] = [];
 
-    function readNotesFromDirectory(dir: string, category?: string): void {
+    function readNotesFromDirectory(dir: string, baseCategory?: string, subcategory?: string): void {
         if (!fs.existsSync(dir)) return;
 
         const items = fs.readdirSync(dir);
@@ -27,29 +32,70 @@ export function getAllNotes(): Note[] {
             const stat = fs.statSync(fullPath);
 
             if (stat.isDirectory()) {
+                // Skip hidden directories and Obsidian metadata
+                if (item.startsWith('.') || item === 'Templates') continue;
+
                 // Recursively read subdirectories
-                readNotesFromDirectory(fullPath, item);
+                const newSubcategory = subcategory ? `${subcategory}/${item}` : item;
+                readNotesFromDirectory(fullPath, baseCategory || item, newSubcategory);
             } else if (item.endsWith('.md')) {
+                // Skip template files and README files
+                if (item.toLowerCase().includes('template') || item.toLowerCase() === 'readme.md') continue;
+
                 const fileContents = fs.readFileSync(fullPath, 'utf8');
                 const { data, content } = matter(fileContents);
 
                 const slug = item.replace(/\.md$/, '');
-                const categoryFromPath = category || path.relative(notesDirectory, path.dirname(fullPath));
+                const categoryFromPath = baseCategory || 'general';
+                const fullSlug = subcategory ? `${subcategory}/${slug}` : slug;
+
+                // Extract title from frontmatter or first heading or filename
+                let title = data.title || slug;
+                if (!data.title && content) {
+                    const firstHeading = content.match(/^#\s+(.+)$/m);
+                    if (firstHeading) {
+                        title = firstHeading[1].trim();
+                    }
+                }
 
                 notes.push({
-                    slug: categoryFromPath ? `${categoryFromPath}/${slug}` : slug,
-                    title: data.title || slug,
+                    slug: fullSlug,
+                    title,
                     content,
                     frontmatter: data,
-                    category: categoryFromPath || 'general',
+                    category: categoryFromPath,
+                    subcategory,
+                    fullPath,
                     tags: data.tags || [],
-                    date: data.date || null,
+                    date: data.date || data.created || extractDateFromContent(content),
                 });
             }
         }
     }
 
-    readNotesFromDirectory(notesDirectory);
+    // Helper function to extract date from content
+    function extractDateFromContent(content: string): string | null {
+        // Look for date patterns in content (YYYY-MM-DD format)
+        const dateMatch = content.match(/\b(\d{4}-\d{2}-\d{2})\b/);
+        return dateMatch ? dateMatch[1] : null;
+    }
+
+    // Try to read from Obsidian vault first, then fallback to local notes
+    if (fs.existsSync(obsidianDirectory)) {
+        // Read from main categories in Obsidian vault
+        const categories = ['Study', 'Work', 'Life', 'Self-Improvement', 'Content', 'Daily'];
+        categories.forEach(category => {
+            const categoryPath = path.join(obsidianDirectory, category);
+            if (fs.existsSync(categoryPath)) {
+                readNotesFromDirectory(categoryPath, category);
+            }
+        });
+    }
+
+    // Also read from local notes directory as fallback/supplement
+    if (fs.existsSync(localNotesDirectory)) {
+        readNotesFromDirectory(localNotesDirectory);
+    }
 
     // Sort by date if available, then by title
     return notes.sort((a, b) => {
@@ -71,11 +117,29 @@ export function getNotesByCategory(): Record<string, Note[]> {
 
     notes.forEach(note => {
         const category = note.category || 'general';
-        if (!categories[category]) {
-            categories[category] = [];
+
+        // Create category key that includes subcategory for better organization
+        let categoryKey = category;
+        if (note.subcategory) {
+            categoryKey = `${category}/${note.subcategory}`;
         }
-        categories[category].push(note);
+
+        if (!categories[categoryKey]) {
+            categories[categoryKey] = [];
+        }
+        categories[categoryKey].push(note);
     });
 
-    return categories;
+    // Sort categories alphabetically and notes within each category
+    const sortedCategories: Record<string, Note[]> = {};
+    Object.keys(categories).sort().forEach(key => {
+        sortedCategories[key] = categories[key].sort((a, b) => {
+            if (a.date && b.date) {
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            }
+            return a.title.localeCompare(b.title);
+        });
+    });
+
+    return sortedCategories;
 }

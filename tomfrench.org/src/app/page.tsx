@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, Twitter, Instagram, Newspaper, Youtube, Globe } from "lucide-react";
+import { UploadButton } from "@/utils/uploadthing";
 // import { getPosts } from "@/lib/posts";
 
 export default function Home() {
@@ -165,9 +166,9 @@ export default function Home() {
                 })}
               </CardContent>
             </Card>
-          </div>
         </div>
       </div>
     </div>
+    </div >
   );
 }

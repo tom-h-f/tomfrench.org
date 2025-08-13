@@ -1,9 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, Twitter, Instagram, Newspaper, Youtube, Globe } from "lucide-react";
-import { UploadButton } from "@/utils/uploadthing";
 // import { getPosts } from "@/lib/posts";
 
 export default function Home() {
@@ -108,18 +108,40 @@ export default function Home() {
                 </CardContent>
               </Card>
             </Link>
+
+            <Link href="/kanban">
+              <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer my-4 bg-main text-main-foreground">
+                <CardHeader>
+                  <CardTitle>Task Board</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-foreground/80">
+                    Kanban-style task management for personal projects.
+                  </p>
+                  <div className="text-sm text-main font-medium">
+                    Open Board →
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </div>          {/* Right Section - Profile & Links */}
           <div className="space-y-6">
             {/* Profile Card */}
             <Card className="my-4 bg-main/20 text-main-foreground">
               <CardContent className="text-center space-y-6 pt-6">
-                <div className="w-32 h-32 mx-auto bg-main rounded-full border-4 border-border shadow-shadow flex items-center justify-center">
-                  <span className="text-4xl">TF</span>
+                <div className="w-32 h-32 mx-auto rounded-full border-4 border-border overflow-hidden">
+                  <Image
+                    src="/face.jpeg"
+                    alt="Tom French"
+                    width={2056}
+                    height={2056}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 <div>
                   <h1 className="text-3xl font-heading mb-2">Tom French</h1>
-                  <p className="text-foreground/80">Developer, Writer, Noise Maker</p>
+                  <p className="text-foreground/80">Curious Man</p>
                 </div>
 
                 {/* Social Links */}
@@ -166,9 +188,9 @@ export default function Home() {
                 })}
               </CardContent>
             </Card>
+          </div>
         </div>
       </div>
-    </div>
     </div >
   );
 }

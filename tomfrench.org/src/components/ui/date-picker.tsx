@@ -34,6 +34,7 @@ export function DatePicker({
                 <Button
                     variant="neutral"
                     disabled={disabled}
+                    type="button"
                     data-empty={!date}
                     className={cn(
                         "w-full justify-start text-left font-normal data-[empty=true]:text-foreground/50",
@@ -44,7 +45,7 @@ export function DatePicker({
                     {date ? format(date, "PPP") : <span>{placeholder}</span>}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                     mode="single"
                     selected={date}

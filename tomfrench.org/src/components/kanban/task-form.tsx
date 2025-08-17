@@ -11,7 +11,6 @@ import {
     SelectValue
 } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
-import { DatePicker } from '@/components/ui/date-picker'
 import { X } from 'lucide-react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -151,10 +150,14 @@ export function TaskForm({ task, initialStatus, onSubmit, onCancel }: TaskFormPr
                                 name="dueDate"
                                 control={control}
                                 render={({ field }) => (
-                                    <DatePicker
-                                        date={field.value}
-                                        onSelect={field.onChange}
-                                        placeholder="Select due date"
+                                    <Input
+                                        type="date"
+                                        value={field.value ? field.value.toISOString().split('T')[0] : ''}
+                                        onChange={(e) => {
+                                            const dateValue = e.target.value
+                                            field.onChange(dateValue ? new Date(dateValue) : undefined)
+                                        }}
+                                        className="text-sm"
                                     />
                                 )}
                             />

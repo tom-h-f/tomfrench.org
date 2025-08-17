@@ -71,6 +71,7 @@ function extractDataSourcesFromChildren(children: ReactNode): DataSourceType[] {
                     title: props.title as string,
                     type: props.type as string,
                     source: props.source as string,
+                    description: props.description as string || '', // Required field
                     summary: props.children as ReactNode,
                     url: props.url as string | undefined,
                     year: props.year as string | undefined,
@@ -135,7 +136,6 @@ export function ResearchPage({ title, description, children }: ResearchPageProps
                         questions={questions}
                         dataSources={dataSources}
                         selectedQuestion={selectedQuestion}
-                        selectedDataSource={selectedDataSource}
                         onQuestionSelect={setSelectedQuestion}
                         onDataSourceSelect={setSelectedDataSource}
                     />

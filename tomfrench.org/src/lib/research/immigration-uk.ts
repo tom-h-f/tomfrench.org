@@ -1,10 +1,9 @@
-import { ResearchTopic } from '../types';
+import { ResearchTopic } from '@/components/research/types';
 
 export const immigrationUKTopic: ResearchTopic = {
     id: 'immigration-uk',
     title: 'Immigration in the UK',
     description: 'Economic impacts, policy analysis, and social integration patterns of immigration in the United Kingdom.',
-    slug: 'immigration-uk',
     questions: [
         {
             id: '1',
@@ -48,6 +47,7 @@ export const immigrationUKTopic: ResearchTopic = {
             title: 'ONS Migration Statistics',
             source: 'Office for National Statistics',
             type: 'statistics',
+            description: 'Official UK migration statistics and demographic data',
             url: 'https://www.ons.gov.uk',
             summary: 'Official UK migration statistics including net migration, visa grants, and demographic breakdowns. Provides quarterly and annual data on international migration flows.'
         },
@@ -56,6 +56,7 @@ export const immigrationUKTopic: ResearchTopic = {
             title: 'Home Office Immigration Statistics',
             source: 'UK Home Office',
             type: 'dataset',
+            description: 'Comprehensive immigration data and enforcement statistics',
             summary: 'Comprehensive immigration data including asylum applications, deportations, and enforcement statistics. Includes detailed breakdowns by nationality, visa type, and outcome.'
         },
         {
@@ -63,6 +64,7 @@ export const immigrationUKTopic: ResearchTopic = {
             title: 'Migration Observatory Reports',
             source: 'University of Oxford',
             type: 'report',
+            description: 'Independent research on migration trends and policy impacts',
             summary: 'Independent research on migration trends, policy impacts, and public attitudes. Provides evidence-based analysis of immigration policy and outcomes.'
         },
         {
@@ -70,6 +72,7 @@ export const immigrationUKTopic: ResearchTopic = {
             title: 'British Social Attitudes Survey',
             source: 'NatCen Social Research',
             type: 'survey',
+            description: 'Annual survey data on public attitudes towards immigration',
             summary: 'Annual survey data on public attitudes towards immigration and related topics. Tracks changes in public opinion over time with robust methodology.'
         }
     ]

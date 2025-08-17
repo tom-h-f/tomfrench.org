@@ -15,6 +15,21 @@
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
   --shadow: 4px 4px 0px 0px var(--border);
+
+  /* shadcn/ui required variables */
+  --popover: var(--secondary-background);
+  --popover-foreground: var(--foreground);
+  --primary: var(--main);
+  --primary-foreground: var(--main-foreground);
+  --secondary: var(--secondary-background);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(88% 0.02 72.89);
+  --muted-foreground: oklch(45% 0.02 72.89);
+  --accent: oklch(90% 0.02 72.89);
+  --accent-foreground: var(--foreground);
+  --card: var(--secondary-background);
+  --card-foreground: var(--foreground);
+
   --chart-1: #FF7A05;
   --chart-2: #0099FF;
   --chart-3: #FFBF00;
@@ -32,6 +47,21 @@
   --border: oklch(0% 0 0);
   --ring: oklch(100% 0 0);
   --shadow: 4px 4px 0px 0px var(--border);
+
+  /* shadcn/ui required variables for dark mode */
+  --popover: var(--secondary-background);
+  --popover-foreground: var(--foreground);
+  --primary: var(--main);
+  --primary-foreground: var(--main-foreground);
+  --secondary: var(--secondary-background);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(35% 0.02 60.06);
+  --muted-foreground: oklch(60% 0.02 60.06);
+  --accent: oklch(30% 0.02 60.06);
+  --accent-foreground: var(--foreground);
+  --card: var(--secondary-background);
+  --card-foreground: var(--foreground);
+
   --chart-1: #EB6D00;
   --chart-2: #008AE5;
   --chart-3: #E5AC00;
@@ -49,6 +79,21 @@
   --color-border: var(--border);
   --color-overlay: var(--overlay);
   --color-ring: var(--ring);
+
+  /* Add shadcn/ui colors for Tailwind */
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);

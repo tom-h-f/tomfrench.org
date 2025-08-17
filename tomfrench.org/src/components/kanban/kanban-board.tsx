@@ -140,15 +140,22 @@ export function KanbanBoard() {
 
         const isActiveTask = active.data.current?.type === 'task'
         const isOverColumn = over.data.current?.type === 'column'
+        const isOverTask = over.data.current?.type === 'task'
 
-        if (isActiveTask && isOverColumn) {
+        if (isActiveTask && (isOverColumn || isOverTask)) {
             const activeTask = active.data.current?.task
-            const overColumn = over.data.current?.column
+            let targetStatus: TaskStatus | undefined
 
-            if (activeTask && overColumn && activeTask.status !== overColumn.status) {
+            if (isOverColumn) {
+                targetStatus = over.data.current?.column?.status
+            } else if (isOverTask) {
+                targetStatus = over.data.current?.task?.status
+            }
+
+            if (activeTask && targetStatus && activeTask.status !== targetStatus) {
                 setTasks(prev => prev.map(task =>
                     task.id === activeTask.id
-                        ? { ...task, status: overColumn.status }
+                        ? { ...task, status: targetStatus }
                         : task
                 ))
             }
@@ -168,14 +175,39 @@ export function KanbanBoard() {
 
         const isActiveTask = active.data.current?.type === 'task'
         const isOverColumn = over.data.current?.type === 'column'
+        const isOverTask = over.data.current?.type === 'task'
 
-        if (isActiveTask && isOverColumn) {
+        if (isActiveTask && (isOverColumn || isOverTask)) {
             const activeTask = active.data.current?.task
-            const overColumn = over.data.current?.column
+            let targetStatus: TaskStatus | undefined
 
-            if (activeTask && overColumn && activeTask.status !== overColumn.status) {
+            if (isOverColumn) {
+                targetStatus = over.data.current?.column?.status
+            } else if (isOverTask) {
+                targetStatus = over.data.current?.task?.status
+            }
+
+            console.log(`Drag ended: active=${activeId}, over=${overId}. `)
+            console.log(`Drag ended: active=${activeId}, over=${overId}.`)
+            console.log('handleDragEnd - event objects:', { active, over })
+            console.log('handleDragEnd - data current:', {
+                activeData: active.data?.current,
+                overData: over.data?.current,
+            })
+            console.log('handleDragEnd - flags:', { isActiveTask, isOverColumn, isOverTask })
+            console.log('handleDragEnd - resolved activeTask:', activeTask)
+            console.log('handleDragEnd - resolved targetStatus:', targetStatus)
+            console.log('handleDragEnd - tasks snapshot:', tasks.map(t => ({ id: t.id, title: t.title, status: t.status })))
+
+            if (!activeTask || !targetStatus) {
+                console.warn('handleDragEnd - aborting move: missing activeTask or targetStatus', { activeTask, targetStatus })
+            } else {
+                console.log(`handleDragEnd - will attempt move: taskId=${activeTask.id}, from=${activeTask.status} -> to=${targetStatus}`)
+            }
+            if (activeTask && targetStatus) {
                 try {
-                    await kanbanStorage.moveTask(activeTask.id as string, overColumn.status)
+                    await kanbanStorage.moveTask(activeTask.id as string, targetStatus)
+                    console.log(`Successfully moved task ${activeTask.id} to ${targetStatus}`)
                 } catch (error) {
                     console.error('Error moving task:', error)
                     // Revert optimistic update
@@ -321,7 +353,7 @@ export function KanbanBoard() {
             )}
 
             <Dialog open={showTaskForm} onOpenChange={setShowTaskForm}>
-                <DialogContent className="max-w-md">
+                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
                     <TaskForm
                         task={editingTask || undefined}
                         initialStatus={initialStatus}

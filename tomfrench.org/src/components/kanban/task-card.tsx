@@ -4,7 +4,7 @@ import { Task } from '@/lib/kanban-types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Calendar, Edit, Trash2 } from 'lucide-react'
+import { Calendar, Trash2 } from 'lucide-react'
 import { format } from 'date-fns'
 import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
@@ -52,6 +52,10 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
             {...listeners}
             className={`cursor-grab active:cursor-grabbing ${isDragging ? 'opacity-50' : ''
                 }`}
+            onDoubleClick={(e) => {
+                e.stopPropagation()
+                onEdit(task)
+            }}
         >
             <Card className="mb-3 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
                 <CardHeader className="pb-3">
@@ -60,17 +64,6 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
                             {task.title}
                         </CardTitle>
                         <div className="flex gap-1">
-                            <Button
-                                variant="noShadow"
-                                size="icon"
-                                className="h-6 w-6 opacity-60 hover:opacity-100"
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    onEdit(task)
-                                }}
-                            >
-                                <Edit className="h-3 w-3" />
-                            </Button>
                             <Button
                                 variant="noShadow"
                                 size="icon"

@@ -27,15 +27,32 @@ export function AudioPlayer({ tracks, category }: AudioPlayerProps) {
 
     useEffect(() => {
         const audio = audioRef.current;
-        if (!audio) return;
+        if (!audio || !currentTrack) return;
 
-        // No need to track time/duration for infinite streams
-        // Remove the ended handler to allow infinite looping
+        // Enhanced seamless looping
+        const handleTimeUpdate = () => {
+            // When very close to the end, immediately restart
+            if (audio.duration && audio.currentTime >= audio.duration - 0.05) {
+                audio.currentTime = 0;
+            }
+        };
+
+        const handleEnded = () => {
+            // Fallback in case timeupdate doesn't catch it
+            audio.currentTime = 0;
+            if (isPlaying) {
+                audio.play().catch(console.error);
+            }
+        };
+
+        audio.addEventListener('timeupdate', handleTimeUpdate);
+        audio.addEventListener('ended', handleEnded);
 
         return () => {
-            // Cleanup if needed
+            audio.removeEventListener('timeupdate', handleTimeUpdate);
+            audio.removeEventListener('ended', handleEnded);
         };
-    }, [currentTrack]);
+    }, [currentTrack, isPlaying]);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -54,7 +71,7 @@ export function AudioPlayer({ tracks, category }: AudioPlayerProps) {
         if (isPlaying) {
             audioRef.current.pause();
         } else {
-            audioRef.current.play();
+            audioRef.current.play().catch(console.error);
         }
         setIsPlaying(!isPlaying);
     };
@@ -154,16 +171,15 @@ export function AudioPlayer({ tracks, category }: AudioPlayerProps) {
                 </Card>
             )}
 
-            {/* Hidden Audio Element */}
+            {/* Hidden Audio Element with Enhanced Looping */}
             {currentTrack && (
                 <audio
                     ref={audioRef}
                     src={currentTrack.src}
-                    preload="metadata"
-                    loop
-                    onLoadStart={() => {
+                    preload="auto"
+                    onLoadedData={() => {
                         if (isPlaying && audioRef.current) {
-                            audioRef.current.play();
+                            audioRef.current.play().catch(console.error);
                         }
                     }}
                 />

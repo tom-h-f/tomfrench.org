@@ -103,7 +103,7 @@ export function NotesPageClient({ notesByCategory }: NotesPageProps) {
                         <Badge variant="neutral">{totalNotes} notes</Badge>
                     </div>
                     <p className="text-foreground/80 mb-4">
-                        Knowledge base from my Obsidian vault, organized by topic and searchable.
+                        Study notes from my Obsidian vault, organized by topic and searchable.
                     </p>
 
                     {/* Search Bar */}

@@ -14,7 +14,7 @@ export interface Note {
     date?: string;
 }
 
-// Primary source: Obsidian vault submodule
+// Primary source: Obsidian vault submodule (Study folder only)
 const obsidianDirectory = path.join(process.cwd(), 'content/obsidian-vault');
 // Fallback: local notes directory
 const localNotesDirectory = path.join(process.cwd(), 'src/content/notes');
@@ -82,14 +82,34 @@ export function getAllNotes(): Note[] {
 
     // Try to read from Obsidian vault first, then fallback to local notes
     if (fs.existsSync(obsidianDirectory)) {
-        // Read from main categories in Obsidian vault
-        const categories = ['Study', 'Work', 'Life', 'Self-Improvement', 'Content', 'Daily'];
-        categories.forEach(category => {
-            const categoryPath = path.join(obsidianDirectory, category);
-            if (fs.existsSync(categoryPath)) {
-                readNotesFromDirectory(categoryPath, category);
+        // Read only from Study category in Obsidian vault
+        const studyPath = path.join(obsidianDirectory, 'Study');
+        if (fs.existsSync(studyPath)) {
+            const studyPath = path.join(obsidianDirectory, 'Study');
+
+            // Try exact path first, then fall back to a case-insensitive match
+            let foundStudyPath: string | null = null;
+            if (fs.existsSync(studyPath)) {
+                foundStudyPath = studyPath;
+            } else {
+                const obsidianItems = fs.readdirSync(obsidianDirectory);
+                const match = obsidianItems.find(item => {
+                    try {
+                        const itemPath = path.join(obsidianDirectory, item);
+                        return fs.statSync(itemPath).isDirectory() && item.toLowerCase() === 'study';
+                    } catch {
+                        return false;
+                    }
+                });
+                if (match) {
+                    foundStudyPath = path.join(obsidianDirectory, match);
+                }
             }
-        });
+
+            if (foundStudyPath) {
+                readNotesFromDirectory(foundStudyPath, 'Study');
+            }
+        }
     }
 
     // Also read from local notes directory as fallback/supplement

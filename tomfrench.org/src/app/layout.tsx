@@ -4,6 +4,9 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import "./globals.css";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navigation } from "@/components/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,13 +29,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)}
-        />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navigation />
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)}
+          />
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

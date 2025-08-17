@@ -3,7 +3,8 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Github, Twitter, Instagram, Newspaper, Youtube, Globe } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Github, Instagram, Newspaper, Youtube, Globe } from "lucide-react";
 // import { getPosts } from "@/lib/posts";
 
 export default function Home() {
@@ -28,8 +29,7 @@ export default function Home() {
 
   const socialLinks = [
     { name: "GitHub", url: "https://github.com/tom-h-f", icon: Github },
-    { name: "X (Twitter)", url: "https://x.com/tomfrench", icon: Twitter },
-    { name: "Instagram", url: "https://instagram.com/tomfrench", icon: Instagram },
+    { name: "Instagram", url: "https://instagram.com/0rseti", icon: Instagram },
   ];
 
   const frequentSites = [
@@ -38,98 +38,162 @@ export default function Home() {
     { name: "AllSides", url: "https://allsides.com", icon: Globe },
   ];
 
-  return (
+  const researchTopics = [
+    {
+      title: "Immigration in the UK",
+      description: "Economic impacts, policy analysis, and social integration",
+      slug: "immigration-uk",
+      icon: Globe,
+      color: "bg-blue-50 text-blue-700 border-blue-200"
+    }
+  ]; return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-7xl mx-auto px-6 py-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left Section - Site Navigation */}
-          <div className="space-y-6">
-            <Link href="/posts">
-              <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer my-4 bg-main text-main-foreground">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    Posts
-                    <Badge variant="neutral">{recentPosts.length} posts</Badge>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-foreground/80">
-                    Thoughts on development, technology, and random musings.
-                  </p>
+        <div className="grid grid-cols-4 gap-8 h-screen">
+          {/* Left Section - Tabbed Content (3/4 width) */}
+          <div className="col-span-3 space-y-6">
+            <Tabs defaultValue="home" className="h-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="home">Home</TabsTrigger>
+                <TabsTrigger value="research">Research</TabsTrigger>
+                <TabsTrigger value="posts">Posts</TabsTrigger>
+              </TabsList>
 
-                  <div className="space-y-3">
-                    {recentPosts.map((post) => (
-                      <div key={post.slug} className="border-l-2 border-border pl-4 rounded">
-                        <h3 className="font-medium text-sm hover:text-main-foreground/40 transition-colors">
-                          {post.title}
-                        </h3>
-                        <p className="text-xs text-foreground/60 mt-1">
-                          {post.date}
+              {/* Home Tab */}
+              <TabsContent value="home" className="mt-6 space-y-6">
+                <div className="grid gap-6 lg:grid-cols-2">
+                  {/* Notes */}
+                  <Link href="/notes">
+                    <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer bg-main text-main-foreground">
+                      <CardHeader>
+                        <CardTitle>Notes</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <p className="text-foreground/80">
+                          Quick thoughts, references, and knowledge fragments.
                         </p>
+                        <div className="text-sm text-main font-medium">
+                          Browse Notes →
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+
+                  {/* Tasks */}
+                  <Link href="/kanban">
+                    <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer bg-main text-main-foreground">
+                      <CardHeader>
+                        <CardTitle>Task Board</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <p className="text-foreground/80">
+                          Kanban-style task management for personal projects.
+                        </p>
+                        <div className="text-sm text-main font-medium">
+                          Open Board →
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </div>
+
+                {/* Noise - Full Width */}
+                <Link href="/noise">
+                  <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer bg-main text-main-foreground">
+                    <CardHeader>
+                      <CardTitle>Noise</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-foreground/80">
+                        Ambient sounds for focus and relaxation.
+                      </p>
+                      <div className="text-sm text-main font-medium">
+                        Open Player →
                       </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </TabsContent>
+
+              {/* Research Tab */}
+              <TabsContent value="research" className="mt-6">
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="text-2xl font-heading mb-2">Research Topics</h2>
+                    <p className="text-foreground/80">Explore areas of ongoing research and interest</p>
+                  </div>
+
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {researchTopics.map((topic) => {
+                      const IconComponent = topic.icon;
+                      return (
+                        <Link key={topic.slug} href={`/research/${topic.slug}`}>
+                          <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer h-full">
+                            <CardHeader className="pb-3">
+                              <div className="flex items-center gap-3">
+                                <div className={`p-2 rounded-lg ${topic.color}`}>
+                                  <IconComponent size={20} />
+                                </div>
+                                <CardTitle className="text-lg">{topic.title}</CardTitle>
+                              </div>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-sm text-foreground/70">{topic.description}</p>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </TabsContent>
+
+              {/* Posts Tab */}
+              <TabsContent value="posts" className="mt-6">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-2xl font-heading mb-2">Posts</h2>
+                      <p className="text-foreground/80">Thoughts on development, technology, and random musings</p>
+                    </div>
+                    <Badge variant="neutral">{recentPosts.length} posts</Badge>
+                  </div>
+
+                  <div className="space-y-4">
+                    {recentPosts.map((post) => (
+                      <Link key={post.slug} href={`/posts/${post.slug}`}>
+                        <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer">
+                          <CardContent className="pt-6">
+                            <div className="space-y-2">
+                              <h3 className="text-xl font-medium hover:text-main transition-colors">
+                                {post.title}
+                              </h3>
+                              <p className="text-sm text-foreground/60">
+                                {post.date}
+                              </p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
                     ))}
                   </div>
 
-                  <div className="text-sm text-main font-medium">
-                    View All Posts →
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+                  <Link href="/posts">
+                    <Button variant="neutral" className="w-full">
+                      View All Posts
+                    </Button>
+                  </Link>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
 
-            <Link href="/notes">
-              <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer my-4 bg-main text-main-foreground">
-                <CardHeader>
-                  <CardTitle>Notes</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-foreground/80">
-                    Quick thoughts, references, and knowledge fragments.
-                  </p>
-                  <div className="text-sm text-main font-medium">
-                    Browse Notes →
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/noise">
-              <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer my-4 bg-main text-main-foreground">
-                <CardHeader>
-                  <CardTitle>Noise</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-foreground/80">
-                    Ambient sounds for focus and relaxation.
-                  </p>
-                  <div className="text-sm text-main font-medium">
-                    Open Player →
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/kanban">
-              <Card className="hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all cursor-pointer my-4 bg-main text-main-foreground">
-                <CardHeader>
-                  <CardTitle>Task Board</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-foreground/80">
-                    Kanban-style task management for personal projects.
-                  </p>
-                  <div className="text-sm text-main font-medium">
-                    Open Board →
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          </div>          {/* Right Section - Profile & Links */}
-          <div className="space-y-6">
+          {/* Right Section - Profile & Links (1/4 width) */}
+          <div className="col-span-1 space-y-6">
             {/* Profile Card */}
-            <Card className="my-4 bg-main/20 text-main-foreground">
-              <CardContent className="text-center space-y-6 pt-6">
-                <div className="w-32 h-32 mx-auto rounded-full border-4 border-border overflow-hidden">
+            <Card className="bg-main/20 text-main-foreground">
+              <CardContent className="text-center space-y-4 pt-6">
+                <div className="w-24 h-24 mx-auto rounded-full border-4 border-border overflow-hidden">
                   <Image
                     src="/face.jpeg"
                     alt="Tom French"
@@ -140,21 +204,20 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <h1 className="text-3xl font-heading mb-2">Tom French</h1>
-                  <p className="text-foreground/80">Curious Man</p>
+                  <h1 className="text-xl font-heading mb-1">Tom French</h1>
+                  <p className="text-sm text-foreground/80">Curious Man</p>
                 </div>
 
                 {/* Social Links */}
                 <div className="space-y-2">
-                  <h3 className="font-heading text-sm">Connect</h3>
                   <div className="flex justify-center gap-2">
                     {socialLinks.map((link) => {
                       const IconComponent = link.icon;
                       return (
                         <Button key={link.name} asChild variant="neutral" size="sm">
                           <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                            <IconComponent size={16} />
-                            {link.name}
+                            <IconComponent size={14} />
+                            <span className="text-xs">{link.name}</span>
                           </a>
                         </Button>
                       );
@@ -164,10 +227,10 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            {/* Frequent Sites */}
-            <Card className="mt-16">
-              <CardHeader>
-                <CardTitle>Quick Links</CardTitle>
+            {/* Quick Links */}
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg">Quick Links</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 {frequentSites.map((site) => {
@@ -177,10 +240,10 @@ export default function Home() {
                       key={site.name}
                       asChild
                       variant="neutral"
-                      className="w-full justify-start"
+                      className="w-full justify-start text-sm h-8"
                     >
                       <a href={site.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                        <IconComponent size={16} />
+                        <IconComponent size={14} />
                         {site.name}
                       </a>
                     </Button>
@@ -191,6 +254,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }

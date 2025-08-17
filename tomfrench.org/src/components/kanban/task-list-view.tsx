@@ -11,7 +11,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { Calendar, Edit, Trash2, Clock, ArrowUpDown } from 'lucide-react'
+import { Calendar, Trash2, Clock, ArrowUpDown } from 'lucide-react'
 import { format } from 'date-fns'
 import { useState } from 'react'
 
@@ -125,7 +125,11 @@ export function TaskListView({ tasks, onEditTask, onDeleteTask, onUpdateStatus }
             {/* Task List */}
             <div className="space-y-3">
                 {filteredAndSortedTasks.map((task) => (
-                    <Card key={task.id} className="hover:shadow-[2px_2px_0px_0px_var(--border)] transition-all">
+                    <Card
+                        key={task.id}
+                        className="hover:shadow-[2px_2px_0px_0px_var(--border)] transition-all cursor-pointer"
+                        onDoubleClick={() => onEditTask(task)}
+                    >
                         <CardContent className="p-4">
                             <div className="flex items-start justify-between gap-4">
                                 <div className="flex-1 min-w-0">
@@ -200,16 +204,11 @@ export function TaskListView({ tasks, onEditTask, onDeleteTask, onUpdateStatus }
                                     <Button
                                         variant="neutral"
                                         size="sm"
-                                        className="h-8 w-8 p-0"
-                                        onClick={() => onEditTask(task)}
-                                    >
-                                        <Edit className="h-3 w-3" />
-                                    </Button>
-                                    <Button
-                                        variant="neutral"
-                                        size="sm"
                                         className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
-                                        onClick={() => onDeleteTask(task.id)}
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            onDeleteTask(task.id)
+                                        }}
                                     >
                                         <Trash2 className="h-3 w-3" />
                                     </Button>

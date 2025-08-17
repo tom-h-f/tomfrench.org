@@ -1,10 +1,10 @@
 'use client';
 
-import React, { ReactNode, useState, useContext, useEffect, createContext } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { ViewMode, Question, DataSource, ResearchTopic } from './types';
+import { ViewMode } from './types';
 import { DataQuestionView } from './views/data-question-view';
 import { QuestionTreeView } from './views/question-tree-view';
 import { DataView } from './views/data-view';
@@ -39,15 +39,43 @@ interface ResearchDataSourceProps {
     children: ReactNode;
 }
 
+// Internal topic interface for the composable system
+interface TopicData {
+    id: string;
+    title: string;
+    description: ReactNode;
+}
+
+interface QuestionData {
+    id: string;
+    title: string;
+    content: ReactNode;
+    tags: string[];
+    relatedQuestions?: string[];
+}
+
+interface DataSourceData {
+    id: string;
+    title: string;
+    type: string;
+    source: string;
+    description: string;
+    summary: ReactNode;
+    url?: string;
+    year?: string;
+    accessInfo?: string;
+    content: ReactNode;
+}
+
 // Context to collect research data
 const ResearchContext = React.createContext<{
-    topics: any[];
-    currentTopic: any;
-    questions: any[];
-    dataSources: any[];
-    addTopic: (topic: any) => void;
-    addQuestion: (question: any) => void;
-    addDataSource: (dataSource: any) => void;
+    topics: TopicData[];
+    currentTopic: TopicData | null;
+    questions: QuestionData[];
+    dataSources: DataSourceData[];
+    addTopic: (topic: TopicData) => void;
+    addQuestion: (question: QuestionData) => void;
+    addDataSource: (dataSource: DataSourceData) => void;
 }>({
     topics: [],
     currentTopic: null,
@@ -59,19 +87,19 @@ const ResearchContext = React.createContext<{
 });
 
 export function ResearchTopicProvider({ children }: ResearchTopicProviderProps) {
-    const [topics, setTopics] = useState<any[]>([]);
-    const [questions, setQuestions] = useState<any[]>([]);
-    const [dataSources, setDataSources] = useState<any[]>([]);
+    const [topics, setTopics] = useState<TopicData[]>([]);
+    const [questions, setQuestions] = useState<QuestionData[]>([]);
+    const [dataSources, setDataSources] = useState<DataSourceData[]>([]);
 
-    const addTopic = (topic: any) => {
+    const addTopic = (topic: TopicData) => {
         setTopics(prev => [...prev, topic]);
     };
 
-    const addQuestion = (question: any) => {
+    const addQuestion = (question: QuestionData) => {
         setQuestions(prev => [...prev, question]);
     };
 
-    const addDataSource = (dataSource: any) => {
+    const addDataSource = (dataSource: DataSourceData) => {
         setDataSources(prev => [...prev, dataSource]);
     };
 
@@ -95,6 +123,7 @@ export function ResearchTopic({ id, title, description, children }: ResearchTopi
 
     React.useEffect(() => {
         context.addTopic({ id, title, description });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, title, description]);
 
     return <>{children}</>;
@@ -105,6 +134,7 @@ export function ResearchQuestion({ id, title, tags, relatedQuestions, children }
 
     React.useEffect(() => {
         context.addQuestion({ id, title, content: children, tags, relatedQuestions });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, title, children, tags, relatedQuestions]);
 
     return null;
@@ -114,7 +144,21 @@ export function ResearchDataSource({ id, title, type, source, url, year, accessI
     const context = React.useContext(ResearchContext);
 
     React.useEffect(() => {
-        context.addDataSource({ id, title, type, source, summary: children, url, year, accessInfo, content: children });
+        // Use the first line of children as description if it's a string
+        const description = typeof children === 'string' ? children.slice(0, 100) : `${type} from ${source}`;
+        context.addDataSource({
+            id,
+            title,
+            type,
+            source,
+            description,
+            summary: children,
+            url,
+            year,
+            accessInfo,
+            content: children
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, title, type, source, url, year, accessInfo, children]);
 
     return null;
@@ -203,7 +247,6 @@ export function ResearchLayout({ defaultTopic }: { defaultTopic?: string }) {
                         questions={context.questions}
                         dataSources={context.dataSources}
                         selectedQuestion={selectedQuestion}
-                        selectedDataSource={selectedDataSource}
                         onQuestionSelect={setSelectedQuestion}
                         onDataSourceSelect={setSelectedDataSource}
                     />

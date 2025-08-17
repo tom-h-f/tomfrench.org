@@ -2,8 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
 import { Question, DataSource } from '../types';
 import { getTypeIconElement, getTypeColor } from '@/utils/research/data';
 import { toast } from "sonner";
@@ -12,7 +10,6 @@ interface DataQuestionViewProps {
     questions: Question[];
     dataSources: DataSource[];
     selectedQuestion: string | null;
-    selectedDataSource: string | null;
     onQuestionSelect: (id: string) => void;
     onDataSourceSelect: (id: string) => void;
 }
@@ -21,7 +18,6 @@ export function DataQuestionView({
     questions,
     dataSources,
     selectedQuestion,
-    selectedDataSource,
     onQuestionSelect,
     onDataSourceSelect,
 }: DataQuestionViewProps) {

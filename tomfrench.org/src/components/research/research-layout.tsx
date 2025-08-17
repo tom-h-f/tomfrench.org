@@ -95,7 +95,6 @@ export function ResearchLayout({ topics, defaultTopic }: ResearchLayoutProps) {
                         questions={currentTopic.questions}
                         dataSources={currentTopic.dataSources}
                         selectedQuestion={selectedQuestion}
-                        selectedDataSource={selectedDataSource}
                         onQuestionSelect={setSelectedQuestion}
                         onDataSourceSelect={setSelectedDataSource}
                     />

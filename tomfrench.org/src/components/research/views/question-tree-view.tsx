@@ -4,15 +4,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Question } from '../types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 // Create a dynamic wrapper for the entire Sigma component to avoid SSR
 const SigmaGraphView = dynamic(
-    () => import('./sigma-graph-wrapper').then(mod => ({ default: mod.SigmaGraphView })),
+    () => import('./sigma-graph-wrapper'),
     {
         ssr: false,
-        loading: () => <div className="flex items-center justify-center h-[70vh] border rounded-lg">Loading graph...</div>
+        loading: () => (
+            <div className="flex items-center justify-center h-64 border rounded-lg bg-muted/10">
+                <div className="text-center space-y-2">
+                    <div className="text-lg font-medium">Loading Graph...</div>
+                    <div className="text-sm text-muted-foreground">Preparing interactive visualization</div>
+                </div>
+            </div>
+        )
     }
 );
 

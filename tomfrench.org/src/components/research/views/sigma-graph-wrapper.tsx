@@ -73,7 +73,7 @@ const LoadGraph = ({ questions, onNodeClick }: { questions: Question[], onNodeCl
     return null;
 };
 
-export const SigmaGraphView = ({ questions, onNodeClick }: SigmaGraphViewProps) => {
+export default function SigmaGraphView({ questions, onNodeClick }: SigmaGraphViewProps) {
     const sigmaStyle = { height: "70vh", width: "100%" };
 
     return (
@@ -81,4 +81,7 @@ export const SigmaGraphView = ({ questions, onNodeClick }: SigmaGraphViewProps) 
             <LoadGraph questions={questions} onNodeClick={onNodeClick} />
         </SigmaContainer>
     );
-};
+}
+
+// Also export as named export for backward compatibility
+export { SigmaGraphView };

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { IndividualAudioPlayer } from "@/components/individual-audio-player";
+import { IndividualAudioPlayer } from "@/components/audio";
 import { ArrowLeft, Waves, Building2, Music } from "lucide-react";
 import Link from "next/link";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";

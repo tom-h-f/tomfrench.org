@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import "./globals.css";
-import { extractRouterConfig } from "uploadthing/server";
-import { ourFileRouter } from "./api/uploadthing/core";
-import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 
@@ -19,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tom French - Developer, Writer, Noise Maker",
-  description: "Personal website featuring posts, notes, and ambient noise player",
+  title: "Tom French - Mathematics, CV, and Thoughts",
+  description: "Personal website featuring mathematical explorations, professional CV, blog posts, and ambient noise player",
 };
 
 export default function RootLayout({
@@ -40,10 +36,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navigation />
-          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)}
-          />
           {children}
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

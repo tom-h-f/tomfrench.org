@@ -1,6 +1,5 @@
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import type { NavItem } from '@/types';
 
 /**
  * Custom hook for navigation logic

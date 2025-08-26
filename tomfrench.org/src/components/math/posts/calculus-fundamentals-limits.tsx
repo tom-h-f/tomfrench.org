@@ -11,24 +11,24 @@ export default function CalculusFundamentalsLimits() {
     <article className="space-y-8">
       <div className="space-y-4">
         <Link href="/math">
-          <Button variant="ghost" size="sm" className="mb-4">
+          <Button variant="neutral" size="sm" className="mb-4">
             <ArrowLeft size={16} className="mr-2" />
             Back to Math
           </Button>
         </Link>
-        
+
         <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+          <Badge variant="neutral" className="bg-blue-100 text-blue-700">
             <BookOpen size={14} className="mr-1" />
             Post
           </Badge>
-          <Badge variant="outline">beginner</Badge>
+          <Badge variant="neutral">beginner</Badge>
         </div>
-        
+
         <h1 className="text-4xl font-bold tracking-tight">
           The Beauty of Limits: Foundation of Calculus
         </h1>
-        
+
         <div className="flex items-center gap-4 text-sm text-foreground/70">
           <div className="flex items-center gap-1">
             <Calendar size={14} />
@@ -45,8 +45,8 @@ export default function CalculusFundamentalsLimits() {
         <div className="p-8 text-center">
           <h2 className="text-xl font-semibold mb-4">Coming Soon</h2>
           <p className="text-foreground/70">
-            This comprehensive post on limits and their role in calculus is currently being written. 
-            It will include interactive visualizations of limit behavior, epsilon-delta proofs, 
+            This comprehensive post on limits and their role in calculus is currently being written.
+            It will include interactive visualizations of limit behavior, epsilon-delta proofs,
             and connections to continuous functions.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function CalculusFundamentalsLimits() {
 
       <div className="flex justify-between items-center pt-8 border-t">
         <Link href="/math">
-          <Button variant="outline">
+          <Button variant="neutral">
             <ArrowLeft size={16} className="mr-2" />
             Back to Math
           </Button>

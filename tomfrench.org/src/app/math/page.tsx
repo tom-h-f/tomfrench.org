@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CardWithHover } from "@/components/ui/card-with-hover";
 import { MathFeed, type MathEntry } from "@/components/math/math-feed";
 import { BookOpen, FlaskConical, Filter } from "lucide-react";
@@ -68,7 +68,7 @@ export default function MathPage() {
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tight">Mathematics Learning Journey</h1>
             <p className="text-xl text-foreground/80">
-              A comprehensive wiki documenting my exploration of mathematical concepts, 
+              A comprehensive wiki documenting my exploration of mathematical concepts,
               proofs, and their applications in computation and beyond.
             </p>
           </div>
@@ -87,20 +87,20 @@ export default function MathPage() {
                       <BookOpen size={16} className="text-blue-600" />
                       <span className="text-sm">Posts</span>
                     </div>
-                    <Badge variant="secondary">{stats.totalPosts}</Badge>
+                    <Badge variant="neutral">{stats.totalPosts}</Badge>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <FlaskConical size={16} className="text-green-600" />
                       <span className="text-sm">Proofs</span>
                     </div>
-                    <Badge variant="secondary">{stats.totalProofs}</Badge>
+                    <Badge variant="neutral">{stats.totalProofs}</Badge>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-sm">Topics Covered</span>
                     </div>
-                    <Badge variant="secondary">{stats.topics}</Badge>
+                    <Badge variant="neutral">{stats.topics}</Badge>
                   </div>
                 </CardContent>
               </CardWithHover>
@@ -117,27 +117,27 @@ export default function MathPage() {
                   <div>
                     <h4 className="text-sm font-medium mb-2">Content Type</h4>
                     <div className="space-y-2">
-                      <Button variant="outline" size="sm" className="w-full justify-start">
+                      <Button variant="neutral" size="sm" className="w-full justify-start">
                         <BookOpen size={14} className="mr-2" />
                         Posts
                       </Button>
-                      <Button variant="outline" size="sm" className="w-full justify-start">
+                      <Button variant="neutral" size="sm" className="w-full justify-start">
                         <FlaskConical size={14} className="mr-2" />
                         Proofs
                       </Button>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h4 className="text-sm font-medium mb-2">Difficulty</h4>
                     <div className="space-y-2">
-                      <Button variant="outline" size="sm" className="w-full justify-start">
+                      <Button variant="neutral" size="sm" className="w-full justify-start">
                         Beginner
                       </Button>
-                      <Button variant="outline" size="sm" className="w-full justify-start">
+                      <Button variant="neutral" size="sm" className="w-full justify-start">
                         Intermediate
                       </Button>
-                      <Button variant="outline" size="sm" className="w-full justify-start">
+                      <Button variant="neutral" size="sm" className="w-full justify-start">
                         Advanced
                       </Button>
                     </div>
@@ -155,7 +155,7 @@ export default function MathPage() {
                     {Array.from(new Set(mathEntries.flatMap(e => e.tags)))
                       .slice(0, 10)
                       .map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
+                        <Badge key={tag} variant="neutral" className="text-xs">
                           {tag}
                         </Badge>
                       ))}
@@ -173,7 +173,7 @@ export default function MathPage() {
                     {mathEntries.length} total entries
                   </p>
                 </div>
-                
+
                 <MathFeed entries={mathEntries} />
               </div>
             </div>

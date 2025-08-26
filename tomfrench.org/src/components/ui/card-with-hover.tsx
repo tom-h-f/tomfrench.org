@@ -1,7 +1,8 @@
-import { Card, CardProps } from "@/components/ui/card";
+import * as React from "react";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-interface CardWithHoverProps extends CardProps {
+interface CardWithHoverProps extends React.ComponentProps<typeof Card> {
   /**
    * Whether the card should have hover effects
    * @default true

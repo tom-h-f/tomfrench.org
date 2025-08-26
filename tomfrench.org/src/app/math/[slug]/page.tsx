@@ -25,13 +25,14 @@ const mathEntries = {
 };
 
 interface MathEntryPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function MathEntryPage({ params }: MathEntryPageProps) {
-  const entry = mathEntries[params.slug as keyof typeof mathEntries];
+export default async function MathEntryPage({ params }: MathEntryPageProps) {
+  const { slug } = await params;
+  const entry = mathEntries[slug as keyof typeof mathEntries];
 
   if (!entry) {
     notFound();

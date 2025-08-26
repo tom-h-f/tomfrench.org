@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CardWithHover } from "@/components/ui/card-with-hover";
-import { Calendar, MapPin, ExternalLink, Award, GraduationCap } from "lucide-react";
+import { Calendar, MapPin, ExternalLink, Award } from "lucide-react";
 
 export default function CV() {
   const experience = [
@@ -145,7 +145,7 @@ export default function CV() {
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {job.technologies.map((tech) => (
-                            <Badge key={tech} variant="secondary" className="text-xs">
+                            <Badge key={tech} variant="neutral" className="text-xs">
                               {tech}
                             </Badge>
                           ))}
@@ -205,7 +205,7 @@ export default function CV() {
                         <p className="text-sm leading-relaxed mb-3">{project.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {project.technologies.map((tech) => (
-                            <Badge key={tech} variant="outline" className="text-xs">
+                            <Badge key={tech} variant="neutral" className="text-xs">
                               {tech}
                             </Badge>
                           ))}
@@ -230,7 +230,7 @@ export default function CV() {
                       <h4 className="font-medium text-sm mb-2">{category}</h4>
                       <div className="flex flex-wrap gap-1">
                         {skillList.map((skill) => (
-                          <Badge key={skill} variant="secondary" className="text-xs">
+                          <Badge key={skill} variant="neutral" className="text-xs">
                             {skill}
                           </Badge>
                         ))}

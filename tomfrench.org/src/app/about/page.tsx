@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CardWithHover } from "@/components/ui/card-with-hover";
@@ -8,7 +7,7 @@ import { Github, Instagram, Newspaper, Youtube, Globe, Mail, MapPin, Briefcase }
 
 export default function About() {
   const skills = [
-    "TypeScript", "React", "Next.js", "Python", "Machine Learning", 
+    "TypeScript", "React", "Next.js", "Python", "Machine Learning",
     "Data Science", "Mathematics", "Statistics", "Algorithm Design"
   ];
 
@@ -39,7 +38,7 @@ export default function About() {
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold tracking-tight">Tom French</h1>
                 <p className="text-xl text-foreground/80 leading-relaxed">
-                  Mathematics enthusiast, software developer, and lifelong learner exploring the intersection 
+                  Mathematics enthusiast, software developer, and lifelong learner exploring the intersection
                   of pure mathematics, computational theory, and practical applications.
                 </p>
               </div>
@@ -52,11 +51,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Briefcase size={16} />
-                  <span>Software Developer & Researcher</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail size={16} />
-                  <span>Available for collaboration</span>
+                  <span>Software Engineer & Researcher of miscellaneous things</span>
                 </div>
               </div>
             </div>
@@ -68,14 +63,14 @@ export default function About() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="leading-relaxed">
-                  I'm passionate about understanding complex systems through mathematical reasoning and 
-                  computational approaches. My work focuses on bridging theoretical mathematics with 
-                  practical software development, particularly in areas involving data analysis, 
+                  I&apos;m passionate about understanding complex systems through mathematical reasoning and
+                  computational approaches. My work focuses on bridging theoretical mathematics with
+                  practical software development, particularly in areas involving data analysis,
                   algorithm design, and mathematical modeling.
                 </p>
                 <p className="leading-relaxed">
-                  Currently, I'm documenting my learning journey through mathematics, creating detailed 
-                  explanations of concepts, proofs, and their applications. I believe in making mathematics 
+                  Currently, I&apos;m documenting my learning journey through mathematics, creating detailed
+                  explanations of concepts, proofs, and their applications. I believe in making mathematics
                   more accessible and demonstrating its beauty through clear exposition and interactive examples.
                 </p>
               </CardContent>
@@ -90,7 +85,7 @@ export default function About() {
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
                     {skills.map((skill) => (
-                      <Badge key={skill} variant="secondary" className="text-xs">
+                      <Badge key={skill} variant="neutral" className="text-xs">
                         {skill}
                       </Badge>
                     ))}
@@ -105,7 +100,7 @@ export default function About() {
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
                     {interests.map((interest) => (
-                      <Badge key={interest} variant="outline" className="text-xs">
+                      <Badge key={interest} variant="neutral" className="text-xs">
                         {interest}
                       </Badge>
                     ))}
@@ -124,14 +119,14 @@ export default function About() {
                   <div>
                     <h4 className="font-medium mb-2">Mathematical Learning Journey</h4>
                     <p className="text-sm text-foreground/70">
-                      Building a comprehensive wiki of mathematical concepts, proofs, and applications. 
+                      Building a comprehensive wiki of mathematical concepts, proofs, and applications.
                       Each entry includes detailed explanations, interactive examples, and connections to related topics.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-medium mb-2">Applied Research</h4>
                     <p className="text-sm text-foreground/70">
-                      Exploring practical applications of mathematical theory in software development, 
+                      Exploring practical applications of mathematical theory in software development,
                       particularly in areas of optimization, statistical modeling, and algorithm analysis.
                     </p>
                   </div>
@@ -149,22 +144,22 @@ export default function About() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <Link href="/math">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="neutral" className="w-full justify-start">
                     📚 Mathematics Wiki
                   </Button>
                 </Link>
                 <Link href="/posts">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="neutral" className="w-full justify-start">
                     ✍️ Blog Posts
                   </Button>
                 </Link>
                 <Link href="/cv">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="neutral" className="w-full justify-start">
                     💼 Professional CV
                   </Button>
                 </Link>
                 <Link href="/noise">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="neutral" className="w-full justify-start">
                     🔊 Focus Sounds
                   </Button>
                 </Link>

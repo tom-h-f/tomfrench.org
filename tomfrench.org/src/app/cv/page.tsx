@@ -1,54 +1,82 @@
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CardWithHover } from "@/components/ui/card-with-hover";
-import { Calendar, MapPin, ExternalLink, Award } from "lucide-react";
+import { MapPin, ExternalLink, Award } from "lucide-react";
+import PrintPdfButton from "@/components/print-pdf-button";
 
 export default function CV() {
+  const SHOW_PROJECTS = false;
   const experience = [
     {
-      company: "Example Tech Company",
-      role: "Senior Software Engineer",
-      period: "2022 - Present",
-      location: "London, UK",
-      description: "Leading development of large-scale web applications using React, TypeScript, and Node.js. Mentoring junior developers and contributing to architectural decisions.",
+      company: "SBS Insurance Services",
+      role: "Lead DevOps Engineer & Project Coordinator",
+      period: "Aug 2025 – Present",
+      location: "United Kingdom",
+      description:
+        "Leading platform engineering and delivery. Coordinating multi-team initiatives and aligning product, engineering, and operations to deliver business-critical outcomes.",
       achievements: [
-        "Improved application performance by 40% through optimization",
-        "Led migration to microservices architecture",
-        "Implemented comprehensive testing strategy increasing coverage to 95%"
+        "Led migration of on‑premises applications to Azure, establishing observability, security, and deployment strategies from the ground up; improved release stability and significantly reduced rollbacks",
+        "Overhauled SDLC practices by introducing a comprehensive test strategy, disciplined code reviews, and building out CI/CD pipelines from scratch",
+        "Drove adoption of AI tooling, enabling AI‑assisted code review and agentic task handling for various development tasks",
+        "Partnered with operations leadership and directors to shape strategy and delivery for key company initiatives"
       ],
-      technologies: ["TypeScript", "React", "Node.js", "PostgreSQL", "AWS"]
+      technologies: [
+        "Azure",
+        "Bicep",
+        "GitHub Actions",
+        "Docker",
+        "Microsoft SQL Server"
+      ]
     },
     {
-      company: "Previous Company",
-      role: "Software Engineer",
-      period: "2020 - 2022",
-      location: "Manchester, UK",
-      description: "Full-stack development focusing on data visualization and mathematical modeling applications.",
+      company: "SBS Insurance Services",
+      role: "Software Developer",
+      period: "2021 – Aug 2025",
+      location: "United Kingdom",
+      description:
+        "Full‑stack development with a focus on commercial APIs, software process improvements, and delivery of high‑impact business applications.",
       achievements: [
-        "Developed interactive mathematical visualization tools",
-        "Collaborated with research teams on algorithmic implementations",
-        "Created automated testing frameworks for numerical computations"
+        "Designed and deployed commercial APIs that automated insurance claims processing between carriers and SBS, removing manual data entry completely and rapidly accelerating processing times",
+        "Led complete redesign of mission-critical customer portal, resulting in 40% faster insurance claim resolution and 25% increase in customer satisfaction scores",
+        "Pioneered implementation of comprehensive testing frameworks and documentation standards across legacy systems, reducing defects by 60% and improving onboarding efficiency",
+        "Leveraged expertise in .NET Core, C#, SQL Server, and modern JavaScript frameworks to deliver high-performance, scalable solutions in a fast-paced insurance technology environment"
       ],
-      technologies: ["Python", "JavaScript", "D3.js", "NumPy", "SciPy"]
+      technologies: [
+        ".NET (C#, VB)",
+        "ASP.NET",
+        "Microsoft SQL Server",
+        "JavaScript",
+        "TypeScript"
+      ]
+    }
+    ,
+    {
+      company: "Harrap IT",
+      role: "Infrastructure Technician",
+      period: "2017 – 2021",
+      location: "United Kingdom",
+      description:
+        "Infrastructure support across Windows and Linux environments with a focus on uptime, productivity, and efficient operations.",
+      achievements: [
+        "Diagnosed and resolved complex technical issues across Windows and Linux workstations, reducing employee downtime by 30% and increasing productivity",
+        "Led critical network troubleshooting initiatives for core infrastructure components, achieving 99.9% uptime",
+        "Served as primary technical support liaison handling 50+ daily customer inquiries via phone, email, and in-person, maintaining 97% customer satisfaction rating",
+        "Created custom system administration tools that automated routine tasks, reducing IT operational overhead by 25% and enabling the team to focus on strategic initiatives"
+      ],
+      technologies: [
+        "Windows",
+        "Linux",
+        "Networking",
+        "Active Directory",
+        "PowerShell"
+      ]
     }
   ];
 
   const education = [
     {
-      institution: "University Name",
-      degree: "Master of Science in Mathematics",
-      period: "2018 - 2020",
-      grade: "First Class Honours",
-      focus: "Pure Mathematics with focus on Abstract Algebra and Real Analysis",
-      thesis: "Applications of Group Theory in Computational Algorithms"
-    },
-    {
-      institution: "University Name",
-      degree: "Bachelor of Science in Mathematics",
-      period: "2015 - 2018",
-      grade: "First Class Honours",
-      focus: "Mathematics and Computer Science",
-      thesis: "Statistical Methods in Machine Learning"
+      institution: "The Open University",
+      degree: "BSc in Cybersecurity",
+      period: "2020 - 2023"
     }
   ];
 
@@ -68,19 +96,26 @@ export default function CV() {
   ];
 
   const skills = {
-    "Programming Languages": ["TypeScript", "Python", "JavaScript", "R", "MATLAB"],
-    "Frameworks & Libraries": ["React", "Next.js", "Node.js", "Express", "NumPy", "SciPy"],
-    "Databases": ["PostgreSQL", "MongoDB", "Redis"],
-    "Tools & Technologies": ["Git", "Docker", "AWS", "Jupyter", "LaTeX"],
-    "Mathematical": ["Statistical Analysis", "Linear Algebra", "Calculus", "Abstract Algebra", "Real Analysis"]
+    "Programming Languages": ["C#", "VB", "TypeScript", "JavaScript", "Python", "Bash", "PowerShell"],
+    "Frameworks & Libraries": [".NET", "ASP.NET", "React", "Next.js", "Tailwind CSS"],
+    "Databases": ["Microsoft SQL Server"],
+    "Tools & Technologies": ["Azure", "Bicep", "GitHub Actions", "Git", "Docker"],
+    "Coordination & Delivery": [
+      "Project Scoping",
+      "Ops Liaison",
+      "Client Engagement",
+      "Technical Clarification",
+      "Stakeholder Visibility",
+      "Cross-functional Coordination"
+    ],
   };
 
   const certifications = [
     {
-      name: "Advanced Mathematics Certification",
-      issuer: "Mathematical Society",
-      date: "2023",
-      description: "Advanced certification in pure mathematics and research methods"
+      name: "CompTIA A+",
+      issuer: "CompTIA",
+      date: "2018",
+      description: "CompTIA A+ Certification"
     }
   ];
 
@@ -92,16 +127,12 @@ export default function CV() {
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tight">Curriculum Vitae</h1>
             <p className="text-xl text-foreground/80">
-              Software Engineer specializing in mathematical computing and web applications
+              Software & DevOps Engineer
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-foreground/70">
               <div className="flex items-center gap-2">
                 <MapPin size={16} />
                 <span>United Kingdom</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar size={16} />
-                <span>Available for new opportunities</span>
               </div>
             </div>
           </div>
@@ -114,7 +145,7 @@ export default function CV() {
                 <h2 className="text-2xl font-bold mb-6">Professional Experience</h2>
                 <div className="space-y-6">
                   {experience.map((job, index) => (
-                    <CardWithHover key={index}>
+                    <Card key={index}>
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <div>
@@ -151,7 +182,7 @@ export default function CV() {
                           ))}
                         </div>
                       </CardContent>
-                    </CardWithHover>
+                    </Card>
                   ))}
                 </div>
               </section>
@@ -161,7 +192,7 @@ export default function CV() {
                 <h2 className="text-2xl font-bold mb-6">Education</h2>
                 <div className="space-y-4">
                   {education.map((edu, index) => (
-                    <CardWithHover key={index}>
+                    <Card key={index}>
                       <CardContent className="pt-6">
                         <div className="flex justify-between items-start mb-3">
                           <div>
@@ -170,57 +201,55 @@ export default function CV() {
                           </div>
                           <div className="text-right text-sm text-foreground/60">
                             <p>{edu.period}</p>
-                            <p className="font-medium text-main">{edu.grade}</p>
                           </div>
                         </div>
-                        <p className="text-sm text-foreground/80 mb-2">{edu.focus}</p>
-                        <p className="text-sm text-foreground/70">
-                          <span className="font-medium">Dissertation:</span> {edu.thesis}
-                        </p>
+                        {/* Additional academic details available on request */}
                       </CardContent>
-                    </CardWithHover>
+                    </Card>
                   ))}
                 </div>
               </section>
 
-              {/* Projects */}
-              <section>
-                <h2 className="text-2xl font-bold mb-6">Key Projects</h2>
-                <div className="space-y-4">
-                  {projects.map((project, index) => (
-                    <CardWithHover key={index}>
-                      <CardContent className="pt-6">
-                        <div className="flex justify-between items-start mb-3">
-                          <h3 className="font-bold">{project.name}</h3>
-                          <a 
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-main hover:underline"
-                          >
-                            <ExternalLink size={16} />
-                            <span className="text-sm">View</span>
-                          </a>
-                        </div>
-                        <p className="text-sm leading-relaxed mb-3">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech) => (
-                            <Badge key={tech} variant="neutral" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </CardWithHover>
-                  ))}
-                </div>
-              </section>
+              {/* Projects (hidden for now) */}
+              {SHOW_PROJECTS && (
+                <section>
+                  <h2 className="text-2xl font-bold mb-6">Key Projects</h2>
+                  <div className="space-y-4">
+                    {projects.map((project, index) => (
+                      <Card key={index}>
+                        <CardContent className="pt-6">
+                          <div className="flex justify-between items-start mb-3">
+                            <h3 className="font-bold">{project.name}</h3>
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1 text-main hover:underline"
+                            >
+                              <ExternalLink size={16} />
+                              <span className="text-sm">View</span>
+                            </a>
+                          </div>
+                          <p className="text-sm leading-relaxed mb-3">{project.description}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {project.technologies.map((tech) => (
+                              <Badge key={tech} variant="neutral" className="text-xs">
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
 
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Skills */}
-              <CardWithHover>
+              <Card>
                 <CardHeader>
                   <CardTitle>Technical Skills</CardTitle>
                 </CardHeader>
@@ -238,10 +267,10 @@ export default function CV() {
                     </div>
                   ))}
                 </CardContent>
-              </CardWithHover>
+              </Card>
 
               {/* Certifications */}
-              <CardWithHover>
+              <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award size={18} />
@@ -257,16 +286,26 @@ export default function CV() {
                     </div>
                   ))}
                 </CardContent>
-              </CardWithHover>
+              </Card>
 
-              {/* Download CV */}
-              <CardWithHover>
+              {/* Download / Print CV */}
+              <Card>
                 <CardContent className="pt-6 text-center">
-                  <button className="w-full bg-main text-main-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
-                    Download PDF CV
-                  </button>
+                  <div className="space-y-2">
+                    <a
+                      href="/TomFrench-CV.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="print:hidden inline-block w-full bg-main text-main-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+                    >
+                      Download PDF (static)
+                    </a>
+                    <div className="print:hidden">
+                      <PrintPdfButton filename="TomFrench-CV" />
+                    </div>
+                  </div>
                 </CardContent>
-              </CardWithHover>
+              </Card>
             </div>
           </div>
         </div>

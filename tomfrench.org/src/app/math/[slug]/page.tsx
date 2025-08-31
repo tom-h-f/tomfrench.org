@@ -10,7 +10,7 @@ const mathEntries = {
 };
 
 
-export default function MathEntryPage({ params }: PageProps<{ slug: string }>) {
+export default function MathEntryPage(params: { slug: string }) {
   const entry = mathEntries[params.slug as keyof typeof mathEntries];
 
   if (!entry) {

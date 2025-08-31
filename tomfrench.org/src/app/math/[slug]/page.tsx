@@ -8,9 +8,15 @@ const mathEntries = {
     type: "proof"
   }
 };
+interface DynamicPageProps {
+  params: {
+    slug: string;
+  }
+}
 
 
-export default function MathEntryPage(params: { slug: string }) {
+
+export default function MathEntryPage({ params }: DynamicPageProps) {
   const entry = mathEntries[params.slug as keyof typeof mathEntries];
 
   if (!entry) {

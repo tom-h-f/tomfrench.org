@@ -1,7 +1,5 @@
 import React from 'react';
-import BuildingModernWebApps from '@/components/posts/building-modern-web-apps';
-import ArtOfCleanCode from '@/components/posts/art-of-clean-code';
-import TypeScriptTipsTricks from '@/components/posts/typescript-tips-tricks';
+import PlaceholderPost from '@/components/posts/placeholder-post';
 
 export interface Post {
     title: string;
@@ -15,26 +13,12 @@ export interface Post {
 export function getPosts(): Post[] {
     return [
         {
-            title: "Building Modern Web Applications",
-            slug: "building-modern-web-apps",
+            title: "placeholder title",
+            slug: "placholder-slug",
             date: "2025-01-15",
-            excerpt: "Thoughts on modern web development patterns and best practices.",
-            component: BuildingModernWebApps
+            excerpt: "placeholder excerpt snippet etc",
+            component: PlaceholderPost
         },
-        {
-            title: "The Art of Clean Code",
-            slug: "art-of-clean-code",
-            date: "2025-01-10",
-            excerpt: "Why writing clean, maintainable code matters more than ever.",
-            component: ArtOfCleanCode
-        },
-        {
-            title: "TypeScript Tips and Tricks",
-            slug: "typescript-tips-tricks",
-            date: "2025-01-05",
-            excerpt: "Advanced TypeScript patterns that will improve your development workflow.",
-            component: TypeScriptTipsTricks
-        }
     ];
 }
 

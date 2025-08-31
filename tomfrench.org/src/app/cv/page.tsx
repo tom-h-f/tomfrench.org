@@ -1,7 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, ExternalLink, Award } from "lucide-react";
-import PrintPdfButton from "@/components/print-pdf-button";
+import { MapPin, ExternalLink, Award, ChevronsUp } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import SocialLinks from "@/components/social-links";
 
 export default function CV() {
   const SHOW_PROJECTS = false;
@@ -144,46 +146,121 @@ export default function CV() {
               <section>
                 <h2 className="text-2xl font-bold mb-6">Professional Experience</h2>
                 <div className="space-y-6">
-                  {experience.map((job, index) => (
-                    <Card key={index}>
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-lg">{job.role}</CardTitle>
-                            <p className="text-foreground/70 font-medium">{job.company}</p>
-                          </div>
-                          <div className="text-right text-sm text-foreground/60">
-                            <p>{job.period}</p>
-                            <p className="flex items-center gap-1">
-                              <MapPin size={12} />
-                              {job.location}
-                            </p>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <p className="text-sm leading-relaxed">{job.description}</p>
+                  <Card key={0}>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="font-medium mb-2">Key Achievements:</h4>
-                          <ul className="text-sm space-y-1 text-foreground/80">
-                            {job.achievements.map((achievement, i) => (
-                              <li key={i} className="flex items-start gap-2">
-                                <span className="text-main mt-1">•</span>
-                                {achievement}
-                              </li>
-                            ))}
-                          </ul>
+                          <CardTitle className="text-lg">{experience[0].role}</CardTitle>
+                          <p className="text-foreground/70 font-medium">{experience[0].company}</p>
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                          {job.technologies.map((tech) => (
-                            <Badge key={tech} variant="neutral" className="text-xs">
-                              {tech}
-                            </Badge>
+                        <div className="text-right text-sm text-foreground/60">
+                          <p>{experience[0].period}</p>
+                          <p className="flex items-center gap-1">
+                            <MapPin size={12} />
+                            {experience[0].location}
+                          </p>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm leading-relaxed">{experience[0].description}</p>
+                      <div>
+                        <h4 className="font-medium mb-2">Key Achievements:</h4>
+                        <ul className="text-sm space-y-1 text-foreground/80">
+                          {experience[0].achievements.map((achievement, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <span className="text-main mt-1">•</span>
+                              {achievement}
+                            </li>
                           ))}
+                        </ul>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {experience[0].technologies.map((tech) => (
+                          <Badge key={tech} variant="neutral" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                    <div className="flex items-center justify-center w-full my-2">
+                      <ChevronsUp size={20} />
+                    </div>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle className="text-lg">{experience[1].role}</CardTitle>
+                          <p className="text-foreground/70 font-medium">{experience[1].company}</p>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                        <div className="text-right text-sm text-foreground/60">
+                          <p>{experience[1].period}</p>
+                          <p className="flex items-center gap-1">
+                            <MapPin size={12} />
+                            {experience[1].location}
+                          </p>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm leading-relaxed">{experience[1].description}</p>
+                      <div>
+                        <h4 className="font-medium mb-2">Key Achievements:</h4>
+                        <ul className="text-sm space-y-1 text-foreground/80">
+                          {experience[1].achievements.map((achievement, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <span className="text-main mt-1">•</span>
+                              {achievement}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {experience[1].technologies.map((tech) => (
+                          <Badge key={tech} variant="neutral" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card key={1}>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle className="text-lg">{experience[2].role}</CardTitle>
+                          <p className="text-foreground/70 font-medium">{experience[2].company}</p>
+                        </div>
+                        <div className="text-right text-sm text-foreground/60">
+                          <p>{experience[2].period}</p>
+                          <p className="flex items-center gap-1">
+                            <MapPin size={12} />
+                            {experience[2].location}
+                          </p>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm leading-relaxed">{experience[2].description}</p>
+                      <div>
+                        <h4 className="font-medium mb-2">Key Achievements:</h4>
+                        <ul className="text-sm space-y-1 text-foreground/80">
+                          {experience[2].achievements.map((achievement, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <span className="text-main mt-1">•</span>
+                              {achievement}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {experience[2].technologies.map((tech) => (
+                          <Badge key={tech} variant="neutral" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </section>
 
@@ -287,25 +364,8 @@ export default function CV() {
                   ))}
                 </CardContent>
               </Card>
+              <SocialLinks />
 
-              {/* Download / Print CV */}
-              <Card>
-                <CardContent className="pt-6 text-center">
-                  <div className="space-y-2">
-                    <a
-                      href="/TomFrench-CV.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="print:hidden inline-block w-full bg-main text-main-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
-                    >
-                      Download PDF (static)
-                    </a>
-                    <div className="print:hidden">
-                      <PrintPdfButton filename="TomFrench-CV" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>

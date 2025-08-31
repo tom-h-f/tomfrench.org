@@ -1,17 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Github, Instagram, Newspaper, Youtube, Globe, Mail, MapPin, Briefcase } from "lucide-react";
+"use client";
+import SocialLinks from "@/components/social-links";
+import dynamic from "next/dynamic";
+import { Mail, MapPin, Briefcase } from "lucide-react";
 
 export default function About() {
-  const frequentSites = [
-    { name: "Hacker News", url: "https://news.ycombinator.com", icon: Newspaper },
-    { name: "YouTube", url: "https://youtube.com", icon: Youtube },
-    { name: "AllSides", url: "https://allsides.com", icon: Globe },
-  ];
-
-  const socialLinks = [
-    { name: "GitHub", url: "https://github.com/tom-h-f", icon: Github },
-    { name: "Instagram", url: "https://instagram.com/0rseti", icon: Instagram },
-  ];
+  const ObfuscatedEmail = dynamic(() => import("@/components/obfuscated-email"), { ssr: false });
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,7 +27,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={16} />
-                  <span>Available for collaboration</span>
+                  <ObfuscatedEmail />
                 </div>
               </div>
             </div>
@@ -44,57 +37,8 @@ export default function About() {
 
           {/* Sidebar - Right Side (1/3) */}
           <div className="space-y-6">
-            {/* Social Links */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Connect w/ Me!</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-3">
-                  {socialLinks.map((social) => {
-                    const IconComponent = social.icon;
-                    return (
-                      <a
-                        key={social.name}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-3 rounded-lg border hover:bg-muted transition-colors"
-                      >
-                        <IconComponent size={18} />
-                        <span className="text-sm font-medium">{social.name}</span>
-                      </a>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+            <SocialLinks />
 
-            {/* Frequent Sites */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Daily Reading</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {frequentSites.map((site) => {
-                    const IconComponent = site.icon;
-                    return (
-                      <a
-                        key={site.name}
-                        href={site.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-2 rounded hover:bg-muted transition-colors"
-                      >
-                        <IconComponent size={16} />
-                        <span className="text-sm">{site.name}</span>
-                      </a>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>

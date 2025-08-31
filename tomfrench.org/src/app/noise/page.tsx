@@ -17,21 +17,10 @@ const allTracks = [
 export default function NoisePage() {
     return (
         <div className="h-screen bg-background flex flex-col overflow-hidden">
-            {/* Top Navigation */}
-            <div className="absolute top-4 left-4 z-10">
-                <Button asChild variant="neutral" size="sm">
-                    <Link href="/" className="flex items-center gap-2">
-                        <ArrowLeft size={16} />
-                        Home
-                    </Link>
-                </Button>
-            </div>
-
-            {/* Main Content Container */}
             <div className="flex-1 flex flex-col items-center justify-center p-4 pt-16">
                 {/* Compact Boombox Header */}
                 <div className="w-full max-w-7xl mb-6">
-                    <Card className="bg-gradient-to-b from-secondary-background to-background border-4 border-border shadow-[4px_4px_0px_0px_var(--border)]">
+                    <Card className="border-4 border-border shadow-[4px_4px_0px_0px_var(--border)]">
                         <div className="flex justify-between items-center p-4">
                             <div className="w-16 h-12 bg-main rounded-base border-2 border-border flex items-center justify-center">
                                 <div className="grid grid-cols-3 gap-1">

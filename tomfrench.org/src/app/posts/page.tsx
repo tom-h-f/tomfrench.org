@@ -11,9 +11,6 @@ export default function PostsPage() {
             <div className="container mx-auto px-4 py-8">
                 <header className="mb-8">
                     <div className="flex items-center gap-4 mb-4">
-                        <Button asChild variant="neutral" size="sm">
-                            <Link href="/">← Home</Link>
-                        </Button>
                         <h1 className="text-3xl font-heading">Posts</h1>
                     </div>
                     <p className="text-foreground/80">

@@ -34,9 +34,6 @@ export default async function PostPage({ params }: PostPageProps) {
                         <Button asChild variant="neutral" size="sm">
                             <Link href="/posts">← Posts</Link>
                         </Button>
-                        <Button asChild variant="neutral" size="sm">
-                            <Link href="/">Home</Link>
-                        </Button>
                     </div>
                     <h1 className="text-3xl font-heading mb-2">{post.title}</h1>
                     <p className="text-foreground/60">{post.date}</p>

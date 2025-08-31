@@ -1,4 +1,4 @@
-export default function BuildingModernWebApps() {
+export default function PlaceholderPost() {
     return (
         <div className="space-y-6">
             <p>

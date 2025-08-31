@@ -1,38 +1,17 @@
 import { notFound } from "next/navigation";
-import UnderstandingGroupTheory from "@/components/math/posts/understanding-group-theory";
-import FermatsLittleTheoremProof from "@/components/math/proofs/fermats-little-theorem-proof";
-import CalculusFundamentalsLimits from "@/components/math/posts/calculus-fundamentals-limits";
 import CauchySchwarzInequality from "@/components/math/proofs/cauchy-schwarz-inequality";
 
-// In a real app, this would come from a CMS or file system
+// TODO use actual ones
 const mathEntries = {
-  "understanding-group-theory": {
-    component: UnderstandingGroupTheory,
-    type: "post"
-  },
-  "fermats-little-theorem-proof": {
-    component: FermatsLittleTheoremProof,
-    type: "proof"
-  },
-  "calculus-fundamentals-limits": {
-    component: CalculusFundamentalsLimits,
-    type: "post"
-  },
   "cauchy-schwarz-inequality": {
     component: CauchySchwarzInequality,
     type: "proof"
   }
 };
 
-interface MathEntryPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
 
-export default async function MathEntryPage({ params }: MathEntryPageProps) {
-  const { slug } = await params;
-  const entry = mathEntries[slug as keyof typeof mathEntries];
+export default function MathEntryPage({ params }: PageProps<{ slug: string }>) {
+  const entry = mathEntries[params.slug as keyof typeof mathEntries];
 
   if (!entry) {
     notFound();

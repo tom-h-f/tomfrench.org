@@ -6,52 +6,18 @@ import { BookOpen, FlaskConical, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function MathPage() {
-  // Sample data - in a real app this would come from a CMS or files
   const mathEntries: MathEntry[] = [
-    {
-      slug: "understanding-group-theory",
-      title: "Understanding Group Theory: From Basics to Applications",
-      type: "post",
-      excerpt: "An intuitive introduction to group theory, exploring how this fundamental algebraic structure appears throughout mathematics and its practical applications in cryptography and physics.",
-      date: "2025-01-20",
-      readTime: "12 min read",
-      tags: ["algebra", "group-theory", "applications"],
-      difficulty: "intermediate",
-      prerequisites: ["basic-algebra", "set-theory"]
-    },
-    {
-      slug: "fermats-little-theorem-proof",
-      title: "Fermat's Little Theorem: Multiple Proof Approaches",
-      type: "proof",
-      excerpt: "A comprehensive exploration of Fermat's Little Theorem with three different proof techniques: combinatorial, group theory, and induction. Each approach reveals different insights into this fundamental result.",
-      date: "2025-01-18",
-      readTime: "8 min read",
-      tags: ["number-theory", "modular-arithmetic", "proof-techniques"],
-      difficulty: "intermediate",
-      prerequisites: ["modular-arithmetic", "basic-combinatorics"]
-    },
-    {
-      slug: "calculus-fundamentals-limits",
-      title: "The Beauty of Limits: Foundation of Calculus",
-      type: "post",
-      excerpt: "Exploring the intuitive and formal definitions of limits, why they're essential for calculus, and how they solve the ancient paradoxes of Zeno. Includes interactive visualizations.",
-      date: "2025-01-15",
-      readTime: "15 min read",
-      tags: ["calculus", "limits", "real-analysis"],
-      difficulty: "beginner",
-      prerequisites: ["algebra", "functions"]
-    },
-    {
-      slug: "cauchy-schwarz-inequality",
-      title: "The Cauchy-Schwarz Inequality: Proof and Applications",
-      type: "proof",
-      excerpt: "A detailed proof of the Cauchy-Schwarz inequality using the inner product approach, followed by its applications in probability theory, linear algebra, and optimization.",
-      date: "2025-01-12",
-      readTime: "10 min read",
-      tags: ["linear-algebra", "inequalities", "optimization"],
-      difficulty: "advanced",
-      prerequisites: ["linear-algebra", "vector-spaces", "inner-products"]
-    }
+    /*     {
+          slug: "understanding-group-theory",
+          title: "Understanding Group Theory: From Basics to Applications",
+          type: "post",
+          excerpt: "An intuitive introduction to group theory, exploring how this fundamental algebraic structure appears throughout mathematics and its practical applications in cryptography and physics.",
+          date: "2025-01-20",
+          readTime: "12 min read",
+          tags: ["algebra", "group-theory", "applications"],
+          difficulty: "intermediate",
+          prerequisites: ["basic-algebra", "set-theory"]
+        }, */
   ];
 
   const stats = {
@@ -66,9 +32,9 @@ export default function MathPage() {
         <div className="space-y-8">
           {/* Header */}
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">Mathematics Learning Journey</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Mathematics</h1>
             <p className="text-xl text-foreground/80">
-              A comprehensive wiki documenting my exploration of mathematical concepts,
+              Documenting my exploration of mathematical concepts,
               proofs, and their applications in computation and beyond.
             </p>
           </div>

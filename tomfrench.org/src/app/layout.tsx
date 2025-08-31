@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +18,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Tom French - Mathematics, CV, and Thoughts",
   description: "Personal website featuring mathematical explorations, professional CV, blog posts, and ambient noise player",
+  icons: {
+    icon: [
+      { url: "/icon.svg?v=1", type: "image/svg+xml" },
+      { url: "/icon.svg" }
+    ],
+    apple: "/icon.svg?v=1",
+    shortcut: "/icon.svg?v=1",
+  },
 };
 
 export default function RootLayout({
@@ -37,6 +46,7 @@ export default function RootLayout({
         >
           <Navigation />
           {children}
+          <Toaster richColors position="bottom-center" />
         </ThemeProvider>
       </body>
     </html>

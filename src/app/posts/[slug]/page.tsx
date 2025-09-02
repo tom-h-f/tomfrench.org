@@ -30,11 +30,6 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="min-h-screen bg-background">
             <div className="container mx-auto px-4 py-8">
                 <header className="mb-8">
-                    <div className="flex items-center gap-4 mb-6">
-                        <Button asChild variant="neutral" size="sm">
-                            <Link href="/posts">← Posts</Link>
-                        </Button>
-                    </div>
                     <h1 className="text-3xl font-heading mb-2">{post.title}</h1>
                     <p className="text-foreground/60">{post.date}</p>
                 </header>

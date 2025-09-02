@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh flex flex-col`}
       >
         <ThemeProvider
           attribute="class"
@@ -45,7 +45,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navigation />
-          {children}
+          <main className="flex-1 min-h-0">
+            {children}
+          </main>
           <Toaster richColors position="bottom-center" />
         </ThemeProvider>
       </body>

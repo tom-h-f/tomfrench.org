@@ -20,11 +20,13 @@ export const metadata: Metadata = {
   description: "Personal website featuring mathematical explorations, professional CV, blog posts, and ambient noise player",
   icons: {
     icon: [
-      { url: "/icon.svg?v=1", type: "image/svg+xml" },
-      { url: "/icon.svg" }
+      { url: "/favicon.ico?v=2" },
+      { url: "/icon.ico?v=2", type: "image/x-icon" }
     ],
-    apple: "/icon.svg?v=1",
-    shortcut: "/icon.svg?v=1",
+    apple: [
+      { url: "/apple-touch-icon.png?v=2", sizes: "180x180" }
+    ],
+    shortcut: "/favicon.ico?v=2",
   },
 };
 
@@ -40,8 +42,9 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
+          storageKey="theme-v2"
           disableTransitionOnChange
         >
           <Navigation />

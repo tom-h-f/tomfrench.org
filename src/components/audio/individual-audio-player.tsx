@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, React } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
@@ -16,10 +16,13 @@ interface AudioTrack {
 
 interface IndividualAudioPlayerProps {
     track: AudioTrack;
+    onPlay?: () => void;
+    onStop?: () => void;
 }
 
-export function IndividualAudioPlayer({ track }: IndividualAudioPlayerProps) {
+export function IndividualAudioPlayer({ track, onPlay, onStop }: IndividualAudioPlayerProps) {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [hasPlayed, setHasPlayed] = useState(false); // Track if this audio has ever played
     const [volume, setVolume] = useState([0.7]);
     const audioRef = useRef<HTMLAudioElement>(null);
     const [objectUrl, setObjectUrl] = useState<string | null>(null);
@@ -101,12 +104,21 @@ export function IndividualAudioPlayer({ track }: IndividualAudioPlayerProps) {
         if (!audio) return;
         // If we already have an object URL (cached or previously fetched), just play
         if (objectUrl) {
-            // Start from fade-in
-            fadeFactorRef.current = 0;
-            applyEffectiveVolume();
-            startFade(1, 30000);
-            await audio.play();
-            setIsPlaying(true);
+            if (!hasPlayed) {
+                // First play: set volume directly, no fade
+                fadeFactorRef.current = 1;
+                applyEffectiveVolume();
+                await audio.play();
+                setIsPlaying(true);
+                setHasPlayed(true);
+            } else {
+                // Subsequent plays: fade in
+                fadeFactorRef.current = 0;
+                applyEffectiveVolume();
+                startFade(1, 30000);
+                await audio.play();
+                setIsPlaying(true);
+            }
             return;
         }
         // Otherwise fetch with progress, cache, and then play
@@ -125,12 +137,21 @@ export function IndividualAudioPlayer({ track }: IndividualAudioPlayerProps) {
             const url = URL.createObjectURL(blob);
             setObjectUrl(url);
             toast.success('Ready to play', { id: tId });
-            // Fade in on initial play
-            fadeFactorRef.current = 0;
-            applyEffectiveVolume();
-            startFade(1, 30000);
-            audio.play();
-            setIsPlaying(true);
+            if (!hasPlayed) {
+                // First play: set volume directly, no fade
+                fadeFactorRef.current = 1;
+                applyEffectiveVolume();
+                audio.play();
+                setIsPlaying(true);
+                setHasPlayed(true);
+            } else {
+                // Subsequent plays: fade in
+                fadeFactorRef.current = 0;
+                applyEffectiveVolume();
+                startFade(1, 30000);
+                audio.play();
+                setIsPlaying(true);
+            }
         } catch {
             toast.error('Failed to download audio', { id: tId });
         }
@@ -142,8 +163,10 @@ export function IndividualAudioPlayer({ track }: IndividualAudioPlayerProps) {
         if (isPlaying) {
             audio.pause();
             setIsPlaying(false);
+            if (onStop) onStop();
         } else {
             ensureSourceAndPlay();
+            if (onPlay) onPlay();
         }
     };
 

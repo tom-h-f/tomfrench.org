@@ -1,7 +1,10 @@
+"use client";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { IndividualAudioPlayer } from "@/components/audio";
+import { toast } from "sonner";
 import { ArrowLeft, Waves, Building2, Music } from "lucide-react";
 import Link from "next/link";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -15,6 +18,42 @@ const allTracks = [
 ] as const;
 
 export default function NoisePage() {
+
+    // Track multiple playing audio tracks
+    const [playingTracks, setPlayingTracks] = React.useState<Set<typeof allTracks[number]>>(new Set());
+
+    // Handler for when a track starts playing
+    const handlePlay = (track: typeof allTracks[number]) => {
+        setPlayingTracks(prev => {
+            const newSet = new Set(prev);
+            newSet.add(track);
+            // Show toast for this track
+            toast.custom((t) => (
+                <div className="flex items-center gap-3 min-w-[200px]">
+                    <span className="font-bold text-sm text-foreground">▶ Playing:</span>
+                    <span className="font-medium text-sm truncate">{track.title}</span>
+                </div>
+            ), {
+                duration: Infinity,
+                position: "bottom-left",
+                important: true,
+                id: `playing-${track.id}`
+            });
+            return newSet;
+        });
+    };
+
+    // Handler for when a track stops playing
+    const handleStop = (track: typeof allTracks[number]) => {
+        setPlayingTracks(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(track);
+            // Remove the toast for this track
+            toast.dismiss(`playing-${track.id}`);
+            return newSet;
+        });
+    };
+
     return (
         <div className="h-screen bg-background flex flex-col overflow-hidden">
             <div className="flex-1 flex flex-col items-center justify-center p-4 pt-16">
@@ -49,7 +88,7 @@ export default function NoisePage() {
                         <div className="flex gap-4 h-full min-w-max px-2 py-2">
                             {allTracks.map((track) => (
                                 <div key={track.id} className="flex-shrink-0 w-64 h-full">
-                                    <EnhancedAudioCard track={track} />
+                                    <EnhancedAudioCard track={track} onPlay={handlePlay} onStop={handleStop} />
                                 </div>
                             ))}
                         </div>
@@ -66,12 +105,17 @@ export default function NoisePage() {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }
 
 // Enhanced Audio Card Component with Category Badge
-function EnhancedAudioCard({ track }: { track: typeof allTracks[number] }) {
+function EnhancedAudioCard({ track, onPlay, onStop }: {
+    track: typeof allTracks[number],
+    onPlay?: (track: typeof allTracks[number]) => void,
+    onStop?: (track: typeof allTracks[number]) => void
+}) {
     const getIcon = (iconType: string) => {
         switch (iconType) {
             case 'waves':
@@ -98,7 +142,11 @@ function EnhancedAudioCard({ track }: { track: typeof allTracks[number] }) {
             </div>
 
             {/* Audio Player */}
-            <IndividualAudioPlayer track={track} />
+            <IndividualAudioPlayer
+                track={track}
+                onPlay={() => onPlay?.(track)}
+                onStop={() => onStop?.(track)}
+            />
         </div>
     );
 }

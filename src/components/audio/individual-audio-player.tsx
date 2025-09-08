@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, React } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';

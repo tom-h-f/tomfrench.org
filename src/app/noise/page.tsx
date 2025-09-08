@@ -36,7 +36,6 @@ export default function NoisePage() {
             ), {
                 duration: Infinity,
                 position: "bottom-left",
-                important: true,
                 id: `playing-${track.id}`
             });
             return newSet;

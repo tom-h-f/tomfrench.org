@@ -104,21 +104,12 @@ export function IndividualAudioPlayer({ track, onPlay, onStop }: IndividualAudio
         if (!audio) return;
         // If we already have an object URL (cached or previously fetched), just play
         if (objectUrl) {
-            if (!hasPlayed) {
-                // First play: set volume directly, no fade
-                fadeFactorRef.current = 1;
-                applyEffectiveVolume();
-                await audio.play();
-                setIsPlaying(true);
-                setHasPlayed(true);
-            } else {
-                // Subsequent plays: fade in
-                fadeFactorRef.current = 0;
-                applyEffectiveVolume();
-                startFade(1, 30000);
-                await audio.play();
-                setIsPlaying(true);
-            }
+            // Always start with full volume on play
+            fadeFactorRef.current = 1;
+            applyEffectiveVolume();
+            await audio.play();
+            setIsPlaying(true);
+            setHasPlayed(true); // Mark as played for future loop fades
             return;
         }
         // Otherwise fetch with progress, cache, and then play
@@ -137,21 +128,12 @@ export function IndividualAudioPlayer({ track, onPlay, onStop }: IndividualAudio
             const url = URL.createObjectURL(blob);
             setObjectUrl(url);
             toast.success('Ready to play', { id: tId });
-            if (!hasPlayed) {
-                // First play: set volume directly, no fade
-                fadeFactorRef.current = 1;
-                applyEffectiveVolume();
-                audio.play();
-                setIsPlaying(true);
-                setHasPlayed(true);
-            } else {
-                // Subsequent plays: fade in
-                fadeFactorRef.current = 0;
-                applyEffectiveVolume();
-                startFade(1, 30000);
-                audio.play();
-                setIsPlaying(true);
-            }
+            // Always start with full volume on first play
+            fadeFactorRef.current = 1;
+            applyEffectiveVolume();
+            audio.play();
+            setIsPlaying(true);
+            setHasPlayed(true); // Mark as played for future loop fades
         } catch {
             toast.error('Failed to download audio', { id: tId });
         }
@@ -178,19 +160,23 @@ export function IndividualAudioPlayer({ track, onPlay, onStop }: IndividualAudio
             const t = audio.currentTime || 0;
             const d = audio.duration || 0;
             const prev = lastTimeRef.current;
-            // Detect loop restart: time wraps from near end to small value
-            if (d && prev > d - 1 && t < 1) {
-                // Just looped, start fade-in
-                fadingRef.current = "in";
-                fadeFactorRef.current = 0;
-                applyEffectiveVolume();
-                startFade(1, 30000);
-            }
-            // Start fade-out in the last 30 seconds if not already fading out
-            if (d && t >= d - 30 && fadingRef.current !== "out") {
-                const remaining = Math.max(0, d - t);
-                fadingRef.current = "out";
-                startFade(0, Math.round(remaining * 1000));
+
+            // Only apply fades after the first play through
+            if (hasPlayed) {
+                // Detect loop restart: time wraps from near end to small value
+                if (d && prev > d - 1 && t < 1) {
+                    // Just looped, start fade-in
+                    fadingRef.current = "in";
+                    fadeFactorRef.current = 0;
+                    applyEffectiveVolume();
+                    startFade(1, 30000);
+                }
+                // Start fade-out in the last 30 seconds if not already fading out
+                if (d && t >= d - 30 && fadingRef.current !== "out") {
+                    const remaining = Math.max(0, d - t);
+                    fadingRef.current = "out";
+                    startFade(0, Math.round(remaining * 1000));
+                }
             }
             lastTimeRef.current = t;
         };
